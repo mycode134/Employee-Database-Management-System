@@ -1,0 +1,223 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Employee Details</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #00BFFF, #FF7F50, #F5DEB3);
+            font-family: 'Arial', sans-serif;
+            color: #000080;
+        }
+
+        .form-container {
+            background-color: rgba(248, 248, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .form-header {
+            font-size: 28px;
+            font-weight: bold;
+            color: #000080;
+            text-align: center;
+            text-shadow: 2px 2px 5px #FF7F50;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #FF7F50;
+        }
+
+        .btn-custom {
+            background: linear-gradient(to right, #00BFFF, #FF7F50);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #FF7F50, #00BFFF);
+            color: #F8F8FF;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            border-radius: 10px;
+            border: 1px solid #00BFFF;
+            box-shadow: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #FF7F50;
+            box-shadow: 0 0 10px rgba(255, 127, 80, 0.5);
+        }
+
+        table {
+            background-color: #F8F8FF;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table th, table td {
+            text-align: left;
+            padding: 12px;
+            border: 1px solid #FF7F50;
+        }
+
+        table th {
+            background-color: #00BFFF;
+            color: #F8F8FF;
+        }
+
+        table td {
+            color: #000080;
+        }
+
+        @media (max-width: 750px) {
+            .form-group label {
+                font-size: 14px;
+            }
+
+            .btn-custom {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            .form-header {
+                font-size: 20px;
+            }
+
+            .btn-custom {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+
+        a {
+            color: #FF7F50;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #00BFFF;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h3 class="form-header">Enter Employee Details</h3>
+        <form method="POST" class="post-form" action="{% url 'emp' %}">
+            {% csrf_token %}
+
+            <div class="form-group row">
+                <label for="emp_id" class="col-sm-3 col-form-label">Employee ID:</label>
+                <div class="col-sm-6">
+                    {{ form.emp_id }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="emp_name" class="col-sm-3 col-form-label">Employee Name:</label>
+                <div class="col-sm-6">
+                    {{ form.emp_name }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="emp_email" class="col-sm-3 col-form-label">Employee Email:</label>
+                <div class="col-sm-6">
+                    {{ form.emp_email }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="emp_contact" class="col-sm-3 col-form-label">Employee Contact:</label>
+                <div class="col-sm-6">
+                    {{ form.emp_contact }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="emp_gender" class="col-sm-3 col-form-label">Gender:</label>
+                <div class="col-sm-6">
+                    {{ form.emp_gender }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="emp_department" class="col-sm-3 col-form-label">Department:</label>
+                <div class="col-sm-6">
+                    {{ form.emp_department }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="emp_jobtitle" class="col-sm-3 col-form-label">Job Title:</label>
+                <div class="col-sm-6">
+                    {{ form.emp_jobtitle }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="emp_salary" class="col-sm-3 col-form-label">Salary:</label>
+                <div class="col-sm-6">
+                    {{ form.emp_salary }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="emp_address" class="col-sm-3 col-form-label">Address:</label>
+                <div class="col-sm-6">
+                    {{ form.emp_address }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="emp_link" class="col-sm-3 col-form-label">Profile Link (LinkedIn/LeetCode):</label>
+                <div class="col-sm-6">
+                    {{ form.emp_link }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6 text-center">
+                    <button type="submit" class="btn btn-custom btn-lg">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

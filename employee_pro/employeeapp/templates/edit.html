@@ -1,0 +1,239 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Update Employee Details</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <style>
+        body {
+            background-image: url('https://www.transparenttextures.com/patterns/butterfly-effect.png'); /* Butterfly effect background */
+            background-color: #f0f8ff; /* Light blue tint */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .form-header {
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #6a1b9a; /* Butterfly purple */
+            text-shadow: 1px 1px 2px #b39ddb;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #4a148c; /* Deep butterfly purple */
+        }
+
+        .btn-custom {
+            background: linear-gradient(45deg, #6a1b9a, #ff80ab); /* Butterfly gradient */
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(45deg, #ff80ab, #6a1b9a);
+            transform: scale(1.1);
+            color: white;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            border-radius: 8px;
+            border: 1px solid #b39ddb; /* Butterfly accent */
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #6a1b9a;
+            box-shadow: 0 0 8px rgba(106, 27, 154, 0.5);
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #b39ddb;
+        }
+
+        th {
+            background-color: #6a1b9a;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .text-butterfly {
+            color: #6a1b9a;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        @media (max-width: 750px) {
+            .form-header {
+                font-size: 24px;
+            }
+
+            .btn-custom {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+
+            .form-group label {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .form-header {
+                font-size: 20px;
+            }
+
+            .btn-custom {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+
+            .form-group label {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h3 class="form-header text-center">Update Employee Details</h3>
+        <form method="POST" class="post-form" action="{% url 'update' employee.id %}">
+            {% csrf_token %}
+            
+            <!-- Employee ID -->
+            <div class="form-group row">
+                <label for="emp_id" class="col-sm-3 col-form-label">Employee ID:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="emp_id" id="id_emp_id" required maxlength="20" value="{{ employee.emp_id }}" class="form-control"/>
+                </div>
+            </div>
+            <br>
+
+            <!-- Employee Name -->
+            <div class="form-group row">
+                <label for="emp_name" class="col-sm-3 col-form-label">Employee Name:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="emp_name" id="id_emp_name" required maxlength="256" value="{{ employee.emp_name }}" class="form-control"/>
+                </div>
+            </div>
+            <br>
+
+            <!-- Employee Email -->
+            <div class="form-group row">
+                <label for="emp_email" class="col-sm-3 col-form-label">Employee Email:</label>
+                <div class="col-sm-6">
+                    <input type="email" name="emp_email" id="id_emp_email" required maxlength="254" value="{{ employee.emp_email }}" class="form-control"/>
+                </div>
+            </div>
+            <br>
+            <!-- Employee Contact -->
+            <div class="form-group row">
+                <label for="emp_contact" class="col-sm-3 col-form-label">Employee Contact:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="emp_contact" id="id_emp_contact" required maxlength="15" value="{{ employee.emp_contact }}" class="form-control"/>
+                </div>
+            </div>
+            <br>
+            <!-- Employee Gender -->
+            <div class="form-group row">
+                <label for="emp_gender" class="col-sm-3 col-form-label">Gender:</label>
+                <div class="col-sm-6">
+                    <select name="emp_gender" id="id_emp_gender" class="form-control">
+                        <option value="Male" {% if employee.emp_gender == 'Male' %}selected{% endif %}>Male</option>
+                        <option value="Female" {% if employee.emp_gender == 'Female' %}selected{% endif %}>Female</option>
+                        <option value="Other" {% if employee.emp_gender == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <!-- Employee Department -->
+            <div class="form-group row">
+                <label for="emp_department" class="col-sm-3 col-form-label">Department:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="emp_department" id="id_emp_department" value="{{ employee.emp_department }}" class="form-control"/>
+                </div>
+            </div>
+            <br>
+            <!-- Employee Job Title -->
+            <div class="form-group row">
+                <label for="emp_jobtitle" class="col-sm-3 col-form-label">Job Title:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="emp_jobtitle" id="id_emp_jobtitle" value="{{ employee.emp_jobtitle }}" class="form-control"/>
+                </div>
+            </div>
+            <br>
+            <!-- Employee Salary -->
+            <div class="form-group row">
+                <label for="emp_salary" class="col-sm-3 col-form-label">Salary:</label>
+                <div class="col-sm-6">
+                    <input type="number" name="emp_salary" id="id_emp_salary" value="{{ employee.emp_salary }}" class="form-control"/>
+                </div>
+            </div>
+            <br>
+            <!-- Employee Address -->
+            <div class="form-group row">
+                <label for="emp_address" class="col-sm-3 col-form-label">Address:</label>
+                <div class="col-sm-6">
+                    <textarea name="emp_address" id="id_emp_address" rows="3" class="form-control">{{ employee.emp_address }}</textarea>
+                </div>
+            </div>
+            <br>
+            <!-- Employee LinkedIn/LeetCode Profile -->
+            <div class="form-group row">
+                <label for="emp_link" class="col-sm-3 col-form-label">Profile Link (LinkedIn/LeetCode):</label>
+                <div class="col-sm-6">
+                    <input type="url" name="emp_link" id="id_emp_link" value="{{ employee.emp_link }}" class="form-control"/>
+                </div>
+            </div>
+            <br>
+            <!-- Submit Button -->
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6 text-center">
+                    <button type="submit" class="btn btn-custom btn-lg">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
